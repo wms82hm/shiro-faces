@@ -8,13 +8,23 @@ import javax.faces.view.facelets.TagConfig;
  *
  * @author Deluan Quintao
  */
-public class HasPermissionTag extends PermissionTagHandler {
+public class HasPermissionTag extends PermissionTagHandler
+{
+	/**
+	 * Creates the TagHandler for the tag that renders the tag body only if the current user has the string permissions
+	 * specified in <tt>name</tt> attribute.
+	 *
+	 * @param config
+	 *            The tag configuration containing document definition for the tag handler.
+	 */
+	public HasPermissionTag(TagConfig config)
+	{
+		super(config);
+	}
 
-    public HasPermissionTag(TagConfig config) {
-        super(config);
-    }
-
-    protected boolean showTagBody(String p) {
-        return isPermitted(p);
-    }
+	@Override
+	protected boolean showTagBody(String p)
+	{
+		return isPermitted(p);
+	}
 }

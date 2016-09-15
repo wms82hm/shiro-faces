@@ -1,9 +1,8 @@
 package org.apache.shiro.web.faces.tags;
 
-import org.apache.shiro.subject.Subject;
-
 import javax.faces.view.facelets.TagConfig;
 
+import org.apache.shiro.subject.Subject;
 
 /**
  * Displays body content if the current user has any of the roles specified.
@@ -11,33 +10,43 @@ import javax.faces.view.facelets.TagConfig;
  * @author Deluan Quintao
  * @author Jeremy Haile
  */
-public class HasAnyRolesTag extends PermissionTagHandler {
+public class HasAnyRolesTag extends PermissionTagHandler
+{
+	// Delimeter that separates role names in tag attribute
+	private static final String ROLE_NAMES_DELIMETER = ",";
 
-    //TODO - complete JavaDoc
+	/**
+	 * Creates the TagHandler for the tag that renders the tag body only if the current user has any of the roles
+	 * specified.
+	 *
+	 * @param config
+	 *            The tag configuration containing document definition for the tag handler.
+	 */
+	public HasAnyRolesTag(TagConfig config)
+	{
+		super(config);
+	}
 
-    // Delimeter that separates role names in tag attribute
-    private static final String ROLE_NAMES_DELIMETER = ",";
+	@Override
+	protected boolean showTagBody(String roleNames)
+	{
+		boolean hasAnyRole = false;
 
-    public HasAnyRolesTag(TagConfig config) {
-        super(config);
-    }
+		Subject subject = getSubject();
 
-    protected boolean showTagBody(String roleNames) {
-        boolean hasAnyRole = false;
+		if (subject != null)
+		{
+			// Iterate through roles and check to see if the user has one of the roles
+			for (String role : roleNames.split(ROLE_NAMES_DELIMETER))
+			{
+				if (subject.hasRole(role.trim()))
+				{
+					hasAnyRole = true;
+					break;
+				}
+			}
+		}
 
-        Subject subject = getSubject();
-
-        if (subject != null) {
-            // Iterate through roles and check to see if the user has one of the roles
-            for (String role : roleNames.split(ROLE_NAMES_DELIMETER)) {
-                if (subject.hasRole(role.trim())) {
-                    hasAnyRole = true;
-                    break;
-                }
-            }
-        }
-
-        return hasAnyRole;
-    }
-
+		return hasAnyRole;
+	}
 }

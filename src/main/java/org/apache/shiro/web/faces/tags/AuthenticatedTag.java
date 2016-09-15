@@ -5,25 +5,36 @@ import javax.faces.view.facelets.TagConfig;
 /**
  * Tag that renders the tag body only if the current user has executed a <b>successful</b> authentication attempt
  * <em>during their current session</em>.
- *
- * <p>This is more restrictive than the {@link UserTag}, which only
+ * <p>
+ * This is more restrictive than the {@link UserTag}, which only
  * ensures the current user is known to the system, either via a current login or from Remember Me services,
  * which only makes the assumption that the current user is who they say they are, and does not guarantee it like
  * this tag does.
- *
- * <p>The logically opposite tag of this one is the {@link NotAuthenticatedTag}
+ * </p>
+ * <p>
+ * The logically opposite tag of this one is the {@link NotAuthenticatedTag}
+ * </p>
  *
  * @author Deluan Quintao
  * @author Jeremy Haile
  * @author Les Hazlewood
  */
-public class AuthenticatedTag extends AuthenticationTagHandler {
+public class AuthenticatedTag extends AuthenticationTagHandler
+{
+	/**
+	 * Creates the TagHandler for the tag that checks for authentication.
+	 *
+	 * @param config
+	 *            The tag configuration containing document definition for the tag handler.
+	 */
+	public AuthenticatedTag(TagConfig config)
+	{
+		super(config);
+	}
 
-    public AuthenticatedTag(TagConfig config) {
-        super(config);
-    }
-
-    protected boolean checkAuthentication() {
-        return (getSubject() != null && getSubject().isAuthenticated());
-    }
+	@Override
+	protected boolean checkAuthentication()
+	{
+		return getSubject() != null && getSubject().isAuthenticated();
+	}
 }
