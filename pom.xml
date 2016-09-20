@@ -8,6 +8,7 @@
     <name>Apache Shiro :: JSF 2 Support</name>
     <description>Fork of the custom tag library to use the Apache Shiro security framework in JSF.</description>
 
+	<!-- Build properties -->
     <properties>
         <!-- Dependencies -->
         <shiro.version>1.2.6</shiro.version>
@@ -21,6 +22,7 @@
         <javadoc.show>public</javadoc.show>
     </properties>
 
+	<!-- Build dependencies -->
     <dependencies>
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -41,6 +43,7 @@
         </dependency>
     </dependencies>
 
+	<!-- Build plugins -->
     <build>
         <plugins>
             <plugin>
